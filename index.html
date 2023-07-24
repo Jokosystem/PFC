@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pierre-Papier-Ciseaux</title>
+    <style>
+        img {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pierre-Feuille-Ciseaux</h1>
+    <p>Choisissez l'une des options ci-dessous :</p>
+    <img src="pierre.jpg" onclick="choisir('pierre')" alt="Pierre">
+    <img src="papier.jpg" onclick="choisir('papier')" alt="Papier">
+    <img src="ciseaux.jpg" onclick="choisir('ciseaux')" alt="Ciseaux">
+    <p id="resultat"></p>
+
+    <script>
+        function choisir(choixJoueur) {
+            var choixOrdinateur = ['pierre', 'papier', 'ciseaux'][Math.floor(Math.random() * 3)];
+
+            var resultat = determinerResultat(choixJoueur, choixOrdinateur);
+
+            var message = "Vous avez choisi : <img src='" + choixJoueur + ".jpg' alt='" + choixJoueur + "'> L'ordinateur a choisi : <img src='" + choixOrdinateur + ".jpg' alt='" + choixOrdinateur + "'> ";
+
+            if (resultat === 'égalité') {
+                message += "EGALITE !";
+            } else if (resultat === 'joueur') {
+                message += "VOUS GAGNEZ !";
+            } else {
+                message += "L'ORDINATEUR GAGNE.";
+            }
+
+            document.getElementById("resultat").innerHTML = message;
+        }
+
+        function determinerResultat(choixJoueur, choixOrdinateur) {
+            if (choixJoueur === choixOrdinateur) {
+                return 'égalité';
+            } else if (
+                (choixJoueur === 'pierre' && choixOrdinateur === 'ciseaux') ||
+                (choixJoueur === 'papier' && choixOrdinateur === 'pierre') ||
+                (choixJoueur === 'ciseaux' && choixOrdinateur === 'papier')
+            ) {
+                return 'joueur';
+            } else {
+                return 'ordinateur';
+            }
+        }
+    </script>
+</body>
+</html>
